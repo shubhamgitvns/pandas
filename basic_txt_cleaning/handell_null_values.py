@@ -21,4 +21,7 @@ print(df.isnull().sum())
 # print only null rows
 print(df[df.isnull().any(axis=1)])
 
+# remove all nane rows in data framne
 print(df.dropna())
+# remove only specifc colums row where the nane exit
+print(df.dropna(subset=['Phy']))
