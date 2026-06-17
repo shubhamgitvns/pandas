@@ -41,3 +41,6 @@ for rows in filter_data:
     view_list.append(rows['views'])
     like_list.append(row['likes'])
 
+X = view_list
+y = like_list
+
