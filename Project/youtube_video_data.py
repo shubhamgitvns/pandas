@@ -44,3 +44,6 @@ for rows in filter_data:
 X = view_list
 y = like_list
 
+# check value using slice
+print(X[:5])
+print(y[:5])
