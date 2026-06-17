@@ -45,11 +45,15 @@ for rows in filter_data:
 
 print(type(view_list[0]))
 # Convert the view_list(1D) to 2D
-# X = np.array(view_list).reshape(-1,1)
-# y = like_list
+x = np.array(view_list).reshape(-1,1)
+y = like_list
 
 
-# model = LinearRegression()
-# model.fit(X,y)
+model = LinearRegression()
+model.fit(x,y)
 
-# print(model)
+print(model.coef_)
+print(model.intercept_)
+
+new_x = np.array([[440238]])
+print(model.predict(new_x))
