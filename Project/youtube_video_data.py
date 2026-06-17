@@ -39,7 +39,7 @@ for i in range(n):
 
 for rows in filter_data:
     view_list.append(rows['views'])
-    like_list.append(row['likes'])
+    like_list.append(rows['likes'])
 
 X = view_list
 y = like_list
