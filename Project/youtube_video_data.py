@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
 movie_data = pd.read_csv("youtube_video_list.csv")
 print(movie_data.head())
@@ -57,3 +58,19 @@ print(model.intercept_)
 
 new_x = np.array([[440238]])
 print(model.predict(new_x))
+
+
+
+# create the graph
+# actual data
+plt.scatter(x, y, color='blue')
+
+# model prediction line
+predicted_y = model.predict(x)
+
+plt.plot(x, predicted_y, color='red')
+plt.xlabel("Views")
+plt.ylabel("Likes")
+plt.title("Linear Regression - Views vs Likes")
+
+plt.show()
