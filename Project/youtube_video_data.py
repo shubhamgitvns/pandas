@@ -4,6 +4,8 @@ movie_data = pd.read_csv("youtube_video_list.csv")
 print(movie_data.head())
 filter_data = []
 error_data =[]
+view_list =[]
+like_list = []
 n = len(movie_data)
 
 print(movie_data.head())
@@ -31,5 +33,11 @@ for i in range(n):
     except:
         error_data.append(row)
 
-print(filter_data)
+# print(filter_data)
+
+# print(type(filter_data[0]))
+
+for rows in filter_data:
+    view_list.append(rows['views'])
+    like_list.append(row['likes'])
 
