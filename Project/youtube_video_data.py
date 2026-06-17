@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 movie_data = pd.read_csv("youtube_video_list.csv")
 print(movie_data.head())
@@ -41,7 +42,8 @@ for rows in filter_data:
     view_list.append(rows['views'])
     like_list.append(rows['likes'])
 
-X = view_list
+# Convert the view_list(1D) to 2D
+X = np.array(view_list).reshape(-1,1)
 y = like_list
 
 # check value using slice
