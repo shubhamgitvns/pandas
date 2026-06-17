@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.linear_model import LinearRegression
 
 movie_data = pd.read_csv("youtube_video_list.csv")
 print(movie_data.head())
@@ -13,12 +14,12 @@ print(movie_data.head())
 
 # print(movie_data.info())
 
-print(movie_data.describe)
+print(movie_data.describe())
 
 # Start cleanning process
 
 # remove null value
-movoe_data = movie_data.dropna()
+movie_data = movie_data.dropna()
 
 # remove dupplicates
 movie_data = movie_data.drop_duplicates()
@@ -39,13 +40,16 @@ for i in range(n):
 # print(type(filter_data[0]))
 
 for rows in filter_data:
-    view_list.append(rows['views'])
-    like_list.append(rows['likes'])
+    view_list.append(float(rows['views']))
+    like_list.append(float(rows['likes']))
 
+print(type(view_list[0]))
 # Convert the view_list(1D) to 2D
-X = np.array(view_list).reshape(-1,1)
-y = like_list
+# X = np.array(view_list).reshape(-1,1)
+# y = like_list
 
-# check value using slice
-print(X[:5])
-print(y[:5])
+
+# model = LinearRegression()
+# model.fit(X,y)
+
+# print(model)
