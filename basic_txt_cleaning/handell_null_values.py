@@ -12,7 +12,7 @@ df = pd.DataFrame(data)
 print(df)
 # handel null values
 
-# print all values in datframe in boolian if none true ese false
+# print all values in datframe in boolian if none true else false
 print(df.isnull())
 
 # print only null columns and show how value nane of each columns

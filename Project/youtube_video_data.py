@@ -13,10 +13,6 @@ n = len(movie_data)
 
 print(movie_data.head())
 
-# print(movie_data.info())
-
-print(movie_data.describe())
-
 # Start cleanning process
 
 # remove null value
@@ -36,41 +32,28 @@ for i in range(n):
     except:
         error_data.append(row)
 
-# print(filter_data)
-
-# print(type(filter_data[0]))
 
 for rows in filter_data:
     view_list.append(float(rows['views']))
     like_list.append(float(rows['likes']))
 
-print(type(view_list[0]))
 # Convert the view_list(1D) to 2D
-x = np.array(view_list).reshape(-1,1)
-y = like_list
+# x = np.array(view_list).reshape(-1,1)
+# y = like_list
+
+# data prediction throw the pollynomial
+x = np.array(view_list)
+y = np.array(like_list)
 
 
-model = LinearRegression()
-model.fit(x,y)
+# model = LinearRegression()
 
-print(model.coef_)
-print(model.intercept_)
-
-new_x = np.array([[440238]])
-print(model.predict(new_x))
-
+# model fit for using pollynomial
+model = np.polynomial.Polynomial.fit(x,y,1)
+print(model)
+# predict the data given the x value and predict y
+print(model([10000]))
 
 
-# create the graph
-# actual data
-plt.scatter(x, y, color='blue')
 
-# model prediction line
-predicted_y = model.predict(x)
 
-plt.plot(x, predicted_y, color='red')
-plt.xlabel("Views")
-plt.ylabel("Likes")
-plt.title("Linear Regression - Views vs Likes")
-
-plt.show()
