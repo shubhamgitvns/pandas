@@ -24,4 +24,8 @@ for i in range(n):
 # convert the filter data list in pandas
 clean_data = pd.DataFrame(filter_data)
 print(clean_data.head())
+clean_data['views'] = clean_data['views'].astype(float)
+print(type(clean_data['views']))
+range_of_views = (clean_data['views'].max() - clean_data['views'].min())
+print(range_of_views)
 
