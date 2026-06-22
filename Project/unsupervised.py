@@ -15,8 +15,13 @@ for i in range(n):
     try:
         float(row['views'])
         float(row['likes'])
+        float(row['dislikes'])
+        float(row['comment'])
         filter_data.append(row)
     except:
         error_data.append(row)
 
-print(len(filter_data))       
+# convert the filter data list in pandas
+clean_data = pd.DataFrame(filter_data)
+print(clean_data.head())
+
