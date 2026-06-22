@@ -24,7 +24,7 @@ for i in range(n):
 # convert the filter data list in pandas
 clean_data = pd.DataFrame(filter_data)
 print(clean_data.head())
-
+print(len(clean_data))
 # convert the column data types
 clean_data['views'] = clean_data['views'].astype(float)
 clean_data['likes'] = clean_data['likes'].astype(float)
@@ -38,9 +38,6 @@ std_of_views = clean_data['views'].std()
 top5_of_views = clean_data['views'].sort_values(ascending=False).head(5)
 min5_of_views = clean_data['views'].sort_values(ascending=False).tail(5)
 
-print(top5_of_views)
-print(min5_of_views)
-
 
 
 range_of_likes = (clean_data['likes'].max() - clean_data['likes'].min())
@@ -48,6 +45,20 @@ mean_of_likes = clean_data['likes'].mean()
 median_of_likes = clean_data['likes'].median()
 std_of_likes = clean_data['likes'].std()
 
+# find top 5% and min 5% data in likes column data
+top5_of_likes = clean_data['likes'].sort_values(ascending=False).head(5)
+min5_of_likes = clean_data['likes'].sort_values(ascending=False).tail(5)
 
+
+# remove the top and min 5% data in the df
+remove_values = list(top5_of_views) + list(min5_of_views) +list(top5_of_likes) + list(min5_of_likes)
+clean_data = clean_data[
+
+    ~clean_data['views'].isin(remove_values)
+]
+
+
+
+print(len(clean_data))
 
 
