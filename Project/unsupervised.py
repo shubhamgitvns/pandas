@@ -24,14 +24,30 @@ for i in range(n):
 # convert the filter data list in pandas
 clean_data = pd.DataFrame(filter_data)
 print(clean_data.head())
+
+# convert the column data types
 clean_data['views'] = clean_data['views'].astype(float)
-print(type(clean_data['views']))
+clean_data['likes'] = clean_data['likes'].astype(float)
+# find the numerical terms (range(), mean(), median(), std()) of each data 
 range_of_views = (clean_data['views'].max() - clean_data['views'].min())
 mean_of_views = clean_data['views'].mean()
 median_of_views = clean_data['views'].median()
 std_of_views = clean_data['views'].std()
-print(range_of_views)
-print(mean_of_views)
-print(median_of_views)
-print(std_of_views)
+
+# find top 5% and min 5% data in view column data
+top5_of_views = clean_data['views'].sort_values(ascending=False).head(5)
+min5_of_views = clean_data['views'].sort_values(ascending=False).tail(5)
+
+print(top5_of_views)
+print(min5_of_views)
+
+
+
+range_of_likes = (clean_data['likes'].max() - clean_data['likes'].min())
+mean_of_likes = clean_data['likes'].mean()
+median_of_likes = clean_data['likes'].median()
+std_of_likes = clean_data['likes'].std()
+
+
+
 
