@@ -93,25 +93,23 @@ top5_views = original_data['views'].sort_values(ascending=False).head(top_n)
 
 min5_views = original_data['views'].sort_values(ascending=True).head(top_n)
 
-lst_superhit_movies = []
-
-lst_flop_movies = []
-
-lst_hit_movies = []
-
 for i in range(n):
     row = original_data.iloc[i]
 
     view = row['views']
     if view in list(top5_views):
-        lst_superhit_movies.append(row)
+        original_data.loc[
+            original_data.index[i], 'Classification'
+        ] = 'SuperHit'
 
     elif view in list(min5_views):
-
-        lst_flop_movies.append(row)
+        original_data.loc[
+            original_data.index[i],'Classification'
+        ] = 'Flop'
 
     else:
-        lst_hit_movies.append(row)
+        original_data.loc[
+            original_data.index[i],'Classification'
+        ] = 'Hit'
 
-superhit_movies = pd.DataFrame(lst_superhit_movies)
-print(superhit_movies)
+print(original_data.head(50))
