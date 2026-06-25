@@ -2,14 +2,15 @@ import pandas as pd
 
 data = pd.read_csv('youtube_video_list.csv')
 
-print(data.head())
+# print(data.head())
 n= len(data)
 
-print(n)
+# print(n)
 
 filter_data = []
 error_data = []
 
+# Remove invalid row
 for i in range(n):
     row = data.iloc[i]
     try:
@@ -23,35 +24,35 @@ for i in range(n):
 
 # convert the filter data list in pandas
 clean_data = pd.DataFrame(filter_data)
-print(clean_data.head())
-print(len(clean_data))
+# print(clean_data.head())
+# print("Len of clean data =",len(clean_data))
+
 # convert the column data types
 clean_data['views'] = clean_data['views'].astype(float)
 clean_data['likes'] = clean_data['likes'].astype(float)
-# find the numerical terms (range(), mean(), median(), std()) of each data 
-range_of_views = (clean_data['views'].max() - clean_data['views'].min())
-mean_of_views = clean_data['views'].mean()
-median_of_views = clean_data['views'].median()
-std_of_views = clean_data['views'].std()
+clean_data['dislikes'] = clean_data['dislikes'].astype(float)
+
+# Save original data for movie classification
+original_data = clean_data.copy()
+
+
+# remove the top and min 5% data in the df
 
 # find top 5% and min 5% data in view column data
 top5_of_views = clean_data['views'].sort_values(ascending=False).head(5)
 min5_of_views = clean_data['views'].sort_values(ascending=False).tail(5)
-
-
-
-range_of_likes = (clean_data['likes'].max() - clean_data['likes'].min())
-mean_of_likes = clean_data['likes'].mean()
-median_of_likes = clean_data['likes'].median()
-std_of_likes = clean_data['likes'].std()
 
 # find top 5% and min 5% data in likes column data
 top5_of_likes = clean_data['likes'].sort_values(ascending=False).head(5)
 min5_of_likes = clean_data['likes'].sort_values(ascending=False).tail(5)
 
 
-# remove the top and min 5% data in the df
-remove_values = list(top5_of_views) + list(min5_of_views) +list(top5_of_likes) + list(min5_of_likes)
+# find top 5% and min 5% data in likes column data
+top5_of_dislikes = clean_data['dislikes'].sort_values(ascending=False).head(5)
+min5_of_dislikes = clean_data['dislikes'].sort_values(ascending=False).tail(5)
+
+remove_values = ( list(top5_of_views) + list(min5_of_views) +list(top5_of_likes) + list(min5_of_likes) +
+list(top5_of_dislikes) + list(min5_of_dislikes))
 clean_data = clean_data[
 
     ~clean_data['views'].isin(remove_values)
@@ -59,6 +60,58 @@ clean_data = clean_data[
 
 
 
-print(len(clean_data))
+# find the numerical terms (range(), mean(), median(), std()) of each data 
+
+range_of_views = (clean_data['views'].max() - clean_data['views'].min())
+mean_of_views = clean_data['views'].mean()
+median_of_views = clean_data['views'].median()
+std_of_views = clean_data['views'].std()
 
 
+range_of_likes = (clean_data['likes'].max() - clean_data['likes'].min())
+mean_of_likes = clean_data['likes'].mean()
+median_of_likes = clean_data['likes'].median()
+std_of_likes = clean_data['likes'].std()
+
+
+
+range_of_dislikes = (clean_data['dislikes'].max() - clean_data['dislikes'].min())
+mean_of_dislikes = clean_data['dislikes'].mean()
+median_of_dislikes = clean_data['dislikes'].median()
+std_of_dislikes = clean_data['dislikes'].std()
+
+
+# classification section
+
+n = len(original_data)
+print("Length of original Data",n)
+
+top_n = int(n * 0.05)
+
+
+top5_views = original_data['views'].sort_values(ascending=False).head(top_n)
+
+min5_views = original_data['views'].sort_values(ascending=True).head(top_n)
+
+lst_superhit_movies = []
+
+lst_flop_movies = []
+
+lst_hit_movies = []
+
+for i in range(n):
+    row = original_data.iloc[i]
+
+    view = row['views']
+    if view in list(top5_views):
+        lst_superhit_movies.append(row)
+
+    elif view in list(min5_views):
+
+        lst_flop_movies.append(row)
+
+    else:
+        lst_hit_movies.append(row)
+
+superhit_movies = pd.DataFrame(lst_superhit_movies)
+print(superhit_movies)
